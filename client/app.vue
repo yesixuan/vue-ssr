@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import Header from './layput/header.vue'
-import Footer from './layput/footer.jsx'
+import Header from './layout/header.vue'
+import Footer from './layout/footer.jsx'
 import Todo from './views/todo/todo.vue'
 
 export default {

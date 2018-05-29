@@ -34,12 +34,15 @@ if (isDev) {
         {
           test: /\.styl/,
           use: [
-            'style-loader',
+            'vue-style-loader', // 使用 vue-style-loader 才能实现修改 css 热更新
             'css-loader',
             {
               loader: 'postcss-loader',
               options: {
                 sourceMap: true,
+                // 这两项用于开启 cssmodules
+                /*module: true,
+                localIdentName: isDev ? '[path]-[name]-[hash:base64:5]' : '[hash:base64:5]'*/
               }
             },
             'stylus-loader'
@@ -68,7 +71,7 @@ if (isDev) {
         {
           test: /\.styl/,
           use: ExtractPlugin.extract({
-            fallback: 'style-loader',
+            fallback: 'vue-style-loader',
             use: [
               'css-loader',
               {
