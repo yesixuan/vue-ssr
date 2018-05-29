@@ -27,7 +27,7 @@ export default {
       required: true,
     }
   },
-  data() {
+  data(){
     return {
       states: ['all', 'active', 'completed']
     }
