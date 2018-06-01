@@ -6,6 +6,7 @@ const ExtractPlugin = require('extract-text-webpack-plugin')
 const baseConfig = require('./webpack.config.base')
 const {VueLoaderPlugin} = require('vue-loader')
 const isDev = process.env.NODE_ENV === 'development'
+const VueClientPlugin = require('vue-server-renderer/client-plugin')
 
 let config
 
@@ -15,8 +16,11 @@ const defaultPlugins = [
       NODE_ENV: isDev ? '"development"' : '"production"'
     }
   }),*/
-  new HTMLPlugin(),
-  new VueLoaderPlugin()
+  new HTMLPlugin({
+    template: path.join(__dirname, 'template.html')
+  }),
+  new VueLoaderPlugin(),
+  new VueClientPlugin()
 ]
 
 const devServer = {
@@ -25,7 +29,11 @@ const devServer = {
   overlay: {
     errors: true,
   },
-  hot: true
+  hot: true,
+  historyApiFallback: {
+    // 不加这个配置项在 history 路由的情况下，直接刷新会去服务器请求页面（下面的路径跟 output 配置项的 publicPath 相关）
+    index: '/public/index.html'
+  }
 }
 
 
@@ -103,6 +111,13 @@ if (isDev) {
       new webpack.optimize.CommonsChunkPlugin({
         name: 'runtime'
       })*/
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          warnings: false,
+          drop_debugger: true,
+          drop_console: true
+        }
+      })
     ])
   })
 }

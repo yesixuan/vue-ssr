@@ -1,11 +1,15 @@
 import Vue from 'vue'
+import VueRouter from 'vue-router'
+import createRouter from './config/router'
 import App from './app.vue'
 
 import './assets/styles/global.styl'
 
-const root = document.createElement('div')
-document.body.appendChild(root)
+const router = createRouter()
+
+Vue.use(VueRouter)
 
 new Vue({
+  router,
   render: (h) => h(App)
-}).$mount(root)
+}).$mount('#root')
