@@ -9,7 +9,7 @@ import createRouter from './config/router'
 import './assets/styles/global.styl'
 
 Vue.use(VueRouter)
-Vue.use(vuex)
+Vue.use(Vuex)
 
 export default () => {
   const router = createRouter()
