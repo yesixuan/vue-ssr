@@ -1,8 +1,9 @@
 const path = require('path')
 const Koa = require('koa')
 const send = require('koa-send')
+const proxy = require('koa-better-http-proxy')
 
-const pageRouter = require('./routers/dev-ssr')
+const staticRouter = require('./routers/static')
 
 const app = new Koa()
 
@@ -22,6 +23,21 @@ app.use(async (ctx, next) => {
     }
   }
 })
+
+app.use(staticRouter.routes()).use(staticRouter.allowedMethods())
+
+let pageRouter
+
+if (isDev) {
+  app.use(proxy('127.0.0.1:3333/public', {
+    proxyReqPathResolver: function(ctx) {
+      return `127.0.0.1:8100/${ctx.path}`
+    }
+  }))
+  pageRouter = require('./routers/dev-ssr')
+} else {
+  pageRouter = require('./routers/ssr')
+}
 
 app.use(async (ctx, next) => {
   if (ctx.path === '/favicon.ico') {

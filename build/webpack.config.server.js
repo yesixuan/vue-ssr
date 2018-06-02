@@ -20,7 +20,6 @@ const defaultPlugins = [
   new VueLoaderPlugin(),
 ]
 
-
 config = merge(baseConfig, {
   target: 'node',
   mode: 'development',
@@ -29,7 +28,7 @@ config = merge(baseConfig, {
     libraryTarget: 'commonjs2',
     // 服务端打包出来的东西，不需要在名字里面加 hash
     filename: 'server.entry.js',
-    path: path.join(__dirname, '../server-build')
+    path: path.join(__dirname, '../server-build'),
   },
   // 浏览器端如果需要引入其他模块，需要走 http 协议，所以要将项目依赖打包到一起。
   // 但是服务端可以直接 require，故而不用打成一个 JS 文件

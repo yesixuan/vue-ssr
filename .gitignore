@@ -1,4 +1,7 @@
 node_modules
 dist
 yarn.lock
+yarn-error.log
 .idea
+public
+server-build

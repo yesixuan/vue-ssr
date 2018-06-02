@@ -32,7 +32,6 @@ const devServer = {
   }
 }
 
-
 if (isDev) {
   config = merge(baseConfig, {
     module: {
@@ -70,7 +69,8 @@ if (isDev) {
       // vendor: ['vue']
     },
     output: {
-      filename: '[name].[chunkhash:8].js'
+      filename: '[name].[chunkhash:8].js',
+      publicPath: '/public/'
     },
     module: {
       rules: [
@@ -101,19 +101,6 @@ if (isDev) {
     plugins: defaultPlugins.concat([
       // new ExtractPlugin('styles.[contentHash:8].css'),
       new ExtractPlugin('styles.[chunkhash:8].css'),
-      /*new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor'
-      }),
-      new webpack.optimize.CommonsChunkPlugin({
-        name: 'runtime'
-      })*/
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          warnings: false,
-          drop_debugger: true,
-          drop_console: true
-        }
-      })
     ])
   })
 }
