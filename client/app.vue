@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="cover"></div>
-    {{count}}
+    <span>{{count}}</span>
     <Header></Header>
     <router-view></router-view>
     <Footer></Footer>
@@ -14,6 +14,9 @@
   import Todo from './views/todo/todo.vue'
 
   export default {
+    metaInfo: {
+      title: 'Vic\'s Todo App'
+    },
     components: {
       Header,
       Footer,

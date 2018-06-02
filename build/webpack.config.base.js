@@ -6,7 +6,7 @@ const isDev = process.env.NODE_ENV === 'development'
 const config = {
   mode: process.env.NODE_ENV || 'production',
   target: 'web',
-  entry: path.join(__dirname, '../client/index.js'),
+  entry: path.join(__dirname, '../client/client-entry.js'),
   output: {
     filename: 'bundle.[hash:8].js',
     path: path.join(__dirname, '../dist'),

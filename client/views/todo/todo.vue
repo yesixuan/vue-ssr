@@ -28,6 +28,9 @@
 
   let id = 0
   export default {
+    metaInfo: {
+      title: 'The Todo App'
+    },
     data() {
       return {
         todos: [],
