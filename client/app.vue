@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="cover"></div>
-    {{$store.state.count}}
+    {{count}}
     <Header></Header>
     <router-view></router-view>
     <Footer></Footer>

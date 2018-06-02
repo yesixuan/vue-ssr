@@ -1,3 +1,4 @@
+/* 这个方法可以看做是控制器，别人处理好的东西最终由它输出到页面中 */
 const ejs = require('ejs')
 
 module.exports = async (ctx, renderer, template) => {

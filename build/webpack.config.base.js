@@ -10,15 +10,15 @@ const config = {
   output: {
     filename: 'bundle.[hash:8].js',
     path: path.join(__dirname, '../dist'),
-    publicPath: '/public/'
+    publicPath: 'http://127.0.0.1:8100/public/'
   },
   module: {
     rules: [
       {
         test: /\.(vue|js|jsx)$/,
-        loader: "eslint-loader",
+        loader: 'eslint-loader',
         exclude: /node_modules/,
-        enforce: "pre", // 先于 vue-loader 进行处理
+        enforce: 'pre', // 先于 vue-loader 进行处理
       },
       {
         test: /\.vue$/,

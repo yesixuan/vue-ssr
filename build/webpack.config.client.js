@@ -11,15 +11,11 @@ const VueClientPlugin = require('vue-server-renderer/client-plugin')
 let config
 
 const defaultPlugins = [
-  /*new webpack.DefinePlugin({
-    'process.env': {
-      NODE_ENV: isDev ? '"development"' : '"production"'
-    }
-  }),*/
   new HTMLPlugin({
     template: path.join(__dirname, 'template.html')
   }),
   new VueLoaderPlugin(),
+  // 这个插件将会生成 vue-ssr-client-manifest.json 文件供服务器端渲染使用
   new VueClientPlugin()
 ]
 

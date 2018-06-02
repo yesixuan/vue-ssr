@@ -1,3 +1,6 @@
+/**
+ * 开发时的服务器端处理逻辑
+ **/
 const path = require('path')
 const fs = require('fs')
 const Router = require('koa-router')
@@ -9,13 +12,16 @@ const VueServerRenderer = require('vue-server-renderer')
 const serverRender = require('./server-render')
 const serverConfig = require('../../build/webpack.config.server')
 
+// 这个 serverCompiler 可以通过 nodejs run 或者直接 watch 来生成打包文件
 const serverCompiler = webpack(serverConfig)
 const mfs = new MemoryFS()
 
+// 打包文件输出到内存而不是硬盘中
 serverCompiler.outputFileSystem = mfs
 
 let bundle
 
+/* 监听项目文件，生成新的打包文件 */
 serverCompiler.watch({}, (err, stats) => {
   // 捕获 webpack 编译错误
   if (err) throw err
@@ -27,11 +33,13 @@ serverCompiler.watch({}, (err, stats) => {
   // vue-ssr-server-bundle.json 文件是 vue-server-renderer 默认生成的文件名
   const bundlePath = path.join(serverConfig.output.path, 'vue-ssr-server-bundle.json')
 
+  // 此处便将 webpack 打包好的文件拿到了
   bundle = JSON.parse(mfs.readFileSync(bundlePath, 'utf-8'))
   console.log('new server bundle')
 })
 
 const handleSSR = async (ctx) => {
+  // 第一次打包的时候会不存在bundle
   if (!bundle) {
     ctx.body = '你等一会儿...'
     return
