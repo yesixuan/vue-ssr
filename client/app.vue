@@ -4,6 +4,7 @@
     <span>{{count}}</span>
     <Header></Header>
     <router-view></router-view>
+    <button @click="notify">notify</button>
     <Footer></Footer>
   </div>
 </template>
@@ -25,6 +26,15 @@
     computed: {
       count() {
         return this.$store.state.count
+      }
+    },
+    mounted() {},
+    methods: {
+      notify() {
+        this.$notify({
+          content: 'hehe',
+          btn: 'close'
+        })
       }
     }
   }
