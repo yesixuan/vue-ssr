@@ -1,6 +1,16 @@
 const Router = require('koa-router')
 
+// 相当于是一个小的 app 实例
 const apiRouter = new Router({ prefix: '/api' })
+
+const validateUser = async (ctx, next) => {
+  if (!ctx.session.user) {
+    ctx.status = 400
+    ctx.body = 'need login'
+  } else {
+    await next()
+  }
+}
 
 const successResponse = data => {
   return {
@@ -8,6 +18,9 @@ const successResponse = data => {
     data: data
   }
 }
+
+// 加一层验证层（这样是全部需要验证， 需要单独配置时可以在 async 前面加上去）
+apiRouter.use(validateUser)
 
 apiRouter
   .get('/todos', async (ctx) => {
