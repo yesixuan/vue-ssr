@@ -23,10 +23,10 @@ const NotificationConstructor = Vue.extend(Component)
 const notify = options => {
   if (Vue.prototype.$isServer) return
 
-  const {autoClose, ...rest} = options
+  const { autoClose, ...rest } = options
 
   const instance = new NotificationConstructor({
-    propsData: {...rest},
+    propsData: { ...rest },
     data: {
       autoClose: autoClose === undefined ? 3000 : autoClose
     }

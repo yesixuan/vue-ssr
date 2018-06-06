@@ -1,13 +1,22 @@
 const path = require('path')
 const Koa = require('koa')
+const koaBody = require('koa-body')
 const send = require('koa-send')
+const createDb = require('./db/db')
+const config = require('../app.config')
+
+const db = createDb(config.db.appId, config.db.appKey)
 
 const staticRouter = require('./routers/static')
+const apiRouter = require('./routers/api')
 
 const app = new Koa()
 
 const isDev = process.env.NODE_ENV === 'development'
 
+/**
+ * 所有请求都会先被打印出请求路径，然后当所有其他中间件处理完毕后，统一处理错误
+ **/
 app.use(async (ctx, next) => {
   try {
     console.log(`request with path ${ctx.request.path}`)
@@ -23,7 +32,14 @@ app.use(async (ctx, next) => {
   }
 })
 
+app.use(async(ctx, next) => {
+  ctx.db = db
+  await next()
+})
+
+app.use(koaBody())
 app.use(staticRouter.routes()).use(staticRouter.allowedMethods())
+app.use(apiRouter.routes()).use(apiRouter.allowedMethods())
 
 let pageRouter
 

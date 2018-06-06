@@ -33,7 +33,7 @@ serverCompiler.watch({}, (err, stats) => {
   // vue-ssr-server-bundle.json 文件是 vue-server-renderer 默认生成的文件名
   const bundlePath = path.join(serverConfig.output.path, 'vue-ssr-server-bundle.json')
 
-  // 此处便将 webpack 打包好的文件拿到了
+  // 此处便将服务器端 webpack 打包好的文件转成 JSON 拿到了
   bundle = JSON.parse(mfs.readFileSync(bundlePath, 'utf-8'))
   console.log('new server bundle')
 })
@@ -54,7 +54,7 @@ const handleSSR = async (ctx) => {
 
   const renderer = VueServerRenderer.createBundleRenderer(bundle, {
     inject: false,
-    clientManifest
+    clientManifest // 适用客户端的打包文件
   })
 
   await serverRender(ctx, renderer, template)

@@ -3,6 +3,13 @@
     <div id="cover"></div>
     <span>{{count}}</span>
     <Header></Header>
+    <!--<Tabs value="1">-->
+      <!--<Tab label="tab1" index="1"></Tab>-->
+      <!--<Tab index="2">-->
+        <!--<span slot="label" style="color: red">tab2</span>-->
+      <!--</Tab>-->
+      <!--<Tab label="tab3" index="3"></Tab>-->
+    <!--</Tabs>-->
     <router-view></router-view>
     <button @click="notify">notify</button>
     <Footer></Footer>
