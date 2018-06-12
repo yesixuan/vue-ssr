@@ -23,17 +23,21 @@
 </template>
 
 <script>
+  import {
+    mapActions,
+    mapState
+  } from 'vuex'
   import Item from './item.vue'
   import Tabs from './tabs.vue'
 
-  let id = 0
+  // let id = 0
   export default {
     metaInfo: {
       title: 'The Todo App'
     },
     data() {
       return {
-        todos: [],
+        // todos: [],
         filter: 'all'
       }
     },
@@ -42,6 +46,7 @@
       Tabs,
     },
     computed: {
+      ...mapState(['todos']),
       filteredTodos() {
         if (this.filter === 'all') {
           return this.todos
@@ -50,15 +55,19 @@
         return this.todos.filter(todo => completed === todo.completed)
       }
     },
+    mounted() {
+      this.fetchTodos()
+    },
     methods: {
-      addTodo(e) {
-        this.todos.unshift({
-          id: id++,
-          content: e.target.value.trim(),
-          completed: false
-        })
-        e.target.value = ''
-      },
+      ...mapActions(['fetchTodos']),
+      // addTodo(e) {
+      //   this.todos.unshift({
+      //     id: id++,+
+      //     content: e.target.value.trim(),
+      //     completed: false
+      //   })
+      //   e.target.value = ''
+      // },
       deleteTodo(id) {
         this.todos.splice(this.todos.findIndex(todo => todo.id === id), 1)
       },

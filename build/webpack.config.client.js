@@ -30,6 +30,10 @@ const devServer = {
   historyApiFallback: {
     // 不加这个配置项在 history 路由的情况下，直接刷新会去服务器请求页面（下面的路径跟 output 配置项的 publicPath 相关）
     index: '/public/index.html'
+  },
+  proxy: {
+    '/api': 'http://127.0.0.1:3333',
+    '/user': 'http://127.0.0.1:3333'
   }
 }
 

@@ -5,7 +5,7 @@ const apiRouter = new Router({ prefix: '/api' })
 
 const validateUser = async (ctx, next) => {
   if (!ctx.session.user) {
-    ctx.status = 400
+    ctx.status = 401
     ctx.body = 'need login'
   } else {
     await next()
