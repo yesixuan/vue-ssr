@@ -48,10 +48,10 @@ export default {
         handleError(err)
       })
   },
-  deleteAllTodo({ commit, state }) {
+  deleteAllCompleted({ commit, state }) {
     const ids = state.todos.filter(t => t.completed).map(t => t.id)
     model.deleteAllCompleted(ids)
-      .then(data => {
+      .then(() => {
         commit('deleteAllTodo', ids)
       })
       .catch(err => {

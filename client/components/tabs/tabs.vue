@@ -18,3 +18,12 @@
     }
   }
 </script>
+
+<style lang="stylus" scoped>
+  .tab-header
+    display flex
+    list-style none
+    margin 0
+    padding 0
+    border-bottom 2px solid #ededed
+</style>
