@@ -1,5 +1,6 @@
 import Todo from '../views/todo/todo.vue'
 import Login from '../views/login/login.vue'
+import Item from '../views/item/item.vue'
 
 export default [
   {
@@ -13,5 +14,9 @@ export default [
   {
     path: '/login',
     component: Login
+  },
+  {
+    path: '/item/:id',
+    component: Item
   }
 ]

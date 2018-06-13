@@ -6,6 +6,7 @@ import Meta from 'vue-meta'
 import App from './app.vue'
 import createStore from './store/store'
 import createRouter from './config/router'
+import { sync } from 'vuex-router-sync'
 
 import Notification from './components/notification'
 import Tabs from './components/tabs'
@@ -21,6 +22,10 @@ Vue.use(Tabs)
 export default () => {
   const router = createRouter()
   const store = createStore()
+
+  // 同步路由状态(route state)到 store
+  sync(store, router)
+
   const app = new Vue({
     router,
     store,

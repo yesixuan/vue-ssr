@@ -1,4 +1,6 @@
-/* 这个方法可以看做是控制器，别人处理好的东西最终由它输出到页面中 */
+/**
+ * 在这里将生成的 html 片段、style 标签、script 标签插入到模版中，最后返回给客户端
+ */
 const ejs = require('ejs')
 
 module.exports = async (ctx, renderer, template) => {
@@ -17,6 +19,7 @@ module.exports = async (ctx, renderer, template) => {
       appString,
       style: context.renderStyles(),
       scripts: context.renderScripts(),
+      state: context.renderState(),
       title: title.text()
     })
 

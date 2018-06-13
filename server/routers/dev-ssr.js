@@ -52,6 +52,10 @@ const handleSSR = async (ctx) => {
     'utf-8'
   )
 
+  /**
+   * 这里，我们拿到客户端静态资源的清单与服务器端打包好的文件（用于生成HTML片段）
+   * 此时，renderer 现在具有了服务器和客户端的构建信息
+   */
   const renderer = VueServerRenderer.createBundleRenderer(bundle, {
     inject: false,
     clientManifest // 适用客户端的打包文件
