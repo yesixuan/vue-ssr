@@ -1,5 +1,5 @@
 import Todo from '../views/todo/todo.vue'
-import Login from '../views/login/login.vue'
+// import Login from '../views/login/login.vue'
 import Item from '../views/item/item.vue'
 
 export default [
@@ -13,7 +13,8 @@ export default [
   },
   {
     path: '/login',
-    component: Login
+    // component: Login
+    component: () => import(/* webpackChunkName: "login-view" */'../views/login/login.vue')
   },
   {
     path: '/item/:id',

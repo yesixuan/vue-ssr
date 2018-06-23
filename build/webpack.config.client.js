@@ -106,6 +106,8 @@ if (isDev) {
     plugins: defaultPlugins.concat([
       // new ExtractPlugin('styles.[contentHash:8].css'),
       new ExtractPlugin('styles.[chunkhash:8].css'),
+      // 将异步路由打包的文件名字固定化
+      new webpack.NamedChunksPlugin()
     ])
   })
 }
