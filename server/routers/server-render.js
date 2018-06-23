@@ -6,7 +6,8 @@ const ejs = require('ejs')
 module.exports = async (ctx, renderer, template) => {
   ctx.headers['ContentType'] = 'text/html'
 
-  const context = {url: ctx.path}
+  // 这里要将用户是否登录的信息传给 context，以便服务端调用接口之前做判断
+  const context = {url: ctx.path, user: ctx.session.user}
 
   try {
     /**
@@ -14,7 +15,7 @@ module.exports = async (ctx, renderer, template) => {
      * 还有很重要的一点是 Vue 帮我们在 context 中加入了很多有用的信息（静态资源的路径）
      **/
     const appString = await renderer.renderToString(context) // 将 context 上下文传给 server-entry.js
-    const { title } = context.meta.inject()
+    const {title} = context.meta.inject()
     const html = ejs.render(template, {
       appString,
       style: context.renderStyles(),

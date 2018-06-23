@@ -63,7 +63,11 @@
       }
     },
     asyncData({store}) {
-      return store.dispatch('fetchTodos')
+      // 服务器端请求接口前需要判断用户是否登录
+      if (store.state.user) {
+        return store.dispatch('fetchTodos')
+      }
+      return Promise.resolve()
     },
     methods: {
       ...mapActions(['fetchTodos', 'addTodo', 'deleteTodo', 'updateTodo', 'deleteAllCompleted']),
