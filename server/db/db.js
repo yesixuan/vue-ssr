@@ -1,3 +1,7 @@
+/**
+ * 底层 API 封装
+ **/
+
 const sha1 = require('sha1')
 const axios = require('axios')
 

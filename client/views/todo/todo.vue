@@ -1,24 +1,24 @@
 <template>
   <section class="real-app">
     <input
-        type="text"
-        class="add-input"
-        autofocus="autofocus"
-        placeholder="接下去要做什么？"
-        @keyup.enter="handleAdd"
+      type="text"
+      class="add-input"
+      autofocus="autofocus"
+      placeholder="接下去要做什么？"
+      @keyup.enter="handleAdd"
     >
     <item
-        :todo="todo"
-        v-for="todo in filteredTodos"
-        :key="todo.id"
-        @del="deleteTodo"
-        @toggle="toggleTodoState"
+      :todo="todo"
+      v-for="todo in filteredTodos"
+      :key="todo.id"
+      @del="deleteTodo"
+      @toggle="toggleTodoState"
     />
     <tabs
-        :filter="filter"
-        :todos="todos"
-        @toggle="toggleFilter"
-        @clearAllCompleted="clearAllCompleted"
+      :filter="filter"
+      :todos="todos"
+      @toggle="toggleFilter"
+      @clearAllCompleted="clearAllCompleted"
     />
   </section>
 </template>
@@ -57,7 +57,13 @@
       }
     },
     mounted() {
-      this.fetchTodos()
+      // 判断数据是不是在 asyncData 中已经请求过了，没有请求才才执行
+      if (this.todos && this.todos.length < 1) {
+        this.fetchTodos()
+      }
+    },
+    asyncData({store}) {
+      return store.dispatch('fetchTodos')
     },
     methods: {
       ...mapActions(['fetchTodos', 'addTodo', 'deleteTodo', 'updateTodo', 'deleteAllCompleted']),

@@ -1,4 +1,5 @@
-import model from '../../model/client-model'
+// 这里引入的 model 是通过webapck 动态配置的引用文件
+import model from 'model'
 import notify from '../../components/notification/function'
 
 const handleError = err => {
@@ -11,7 +12,7 @@ const handleError = err => {
 
 export default {
   fetchTodos({ commit }) {
-    model.getAllTodos()
+    return model.getAllTodos()
       .then(data => {
         commit('fillTodos', data)
       })
