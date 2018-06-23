@@ -15,6 +15,11 @@ module.exports = async (ctx, renderer, template) => {
      * 还有很重要的一点是 Vue 帮我们在 context 中加入了很多有用的信息（静态资源的路径）
      **/
     const appString = await renderer.renderToString(context) // 将 context 上下文传给 server-entry.js
+    // 第一次 renderString 的时候会调用 api，如果没权限会修改 router 对象（重定向）,
+    // 这里再判断 router 里的路径与当前请求的路径是否一致，如果不一致就服务器端重定向，再次触发 renderString
+    if (context.router.currentRoute.fullPath !== ctx.path) {
+      return ctx.redirect(context.router.currentRoute.fullPath)
+    }
     const {title} = context.meta.inject()
     const html = ejs.render(template, {
       appString,

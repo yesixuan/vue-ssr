@@ -62,11 +62,12 @@
         this.fetchTodos()
       }
     },
-    asyncData({store}) {
+    asyncData({store, router}) {
       // 服务器端请求接口前需要判断用户是否登录
       if (store.state.user) {
         return store.dispatch('fetchTodos')
       }
+      router.replace('login')
       return Promise.resolve()
     },
     methods: {

@@ -21,6 +21,7 @@ export default context => {
         if (Component.asyncData) {
           return Component.asyncData({
             store,
+            router,
             route: router.currentRoute
           })
         }
@@ -32,6 +33,7 @@ export default context => {
         // 状态将自动序列化为 `window.__INITIAL_STATE__`，并注入 HTML。
         context.state = store.state
         context.meta = app.$meta()
+        context.router = router
         resolve(app)
       }).catch(reject)
     })
